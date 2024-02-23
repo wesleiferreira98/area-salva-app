@@ -1,0 +1,7 @@
+The Clipboard Manager is a simple Android app for managing clipboard content. It allows users to collect and organize copied text for easy access later.
+
+Features:
+- Clipboard Monitoring: The app monitors the device's clipboard to detect copied text.
+- Save Text: Copied texts are automatically saved in the app for future reference.
+- Delete Text: Users can delete items from the list of saved texts, keeping the clipboard clean and organized.
+- Intuitive Interface: A simple and intuitive user interface enables easy and quick navigation.

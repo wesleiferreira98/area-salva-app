@@ -1,0 +1,7 @@
+O Área Salva é um aplicativo simples de gerenciamento da área de transferência para dispositivos Android. Ele permite que os usuários coletem e organizem textos copiados para fácil acesso posterior.
+
+Recursos
+	Monitoramento da Área de Transferência: O aplicativo monitora a área de transferência do dispositivo para detectar textos copiados.
+	Salvar Textos: Os textos copiados são salvos automaticamente no aplicativo para referência futura.
+	Excluir Textos: Os usuários podem excluir itens da lista de textos salvos, mantendo a área de transferência limpa e organizada.
+	Interface Intuitiva: Uma interface de usuário simples e intuitiva permite uma navegação fácil e rápida.
