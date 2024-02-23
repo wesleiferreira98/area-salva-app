@@ -42,9 +42,7 @@ Contribuições são bem-vindas! Para contribuir com o **Área Salva**, siga est
 
 ## Licença
 
-Este projeto está licenciado sob a Licença [MIT](link_para_licenca).
+Este projeto está licenciado sob a Licença [MIT](https://www.mit.edu/~amini/LICENSE.md).
 
----
 
-Você pode personalizar e expandir este README conforme necessário, adicionando mais informações, instruções de instalação detalhadas, capturas de tela adicionais, etc. Certifique-se de incluir links relevantes para download do APK, licença e outras referências úteis.
  
