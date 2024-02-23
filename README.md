@@ -1,6 +1,3 @@
-Claro! Abaixo está um exemplo de README.md para o aplicativo Área Salva:
-
----
 
 # Área Salva
 
@@ -15,7 +12,12 @@ O **Área Salva** é um aplicativo simples de gerenciamento da área de transfer
 
 ## Capturas de Tela
 
-_(Inserir capturas de tela aqui, mostrando a interface do usuário do aplicativo)_
+![1708715037814](image/README/1708715037814.png)
+
+![1708715055995](image/README/1708715055995.png)
+
+![1708715167280](image/README/1708715167280.png)
+
 
 ## Instalação
 
@@ -43,6 +45,3 @@ Contribuições são bem-vindas! Para contribuir com o **Área Salva**, siga est
 ## Licença
 
 Este projeto está licenciado sob a Licença [MIT](https://www.mit.edu/~amini/LICENSE.md).
-
-
- 
