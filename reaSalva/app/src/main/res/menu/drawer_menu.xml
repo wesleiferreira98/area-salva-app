@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_instrucoes"
+            android:icon="@drawable/ic_item2"
+            android:title="Instruções de uso" />
+        <item
+            android:id="@+id/menu_settings"
+            android:icon="@drawable/ic_item2"
+            android:title="Observação" />
+        <item
+            android:id="@+id/menu_about"
+            android:icon="@drawable/ic_item1"
+            android:title="Sobre" />
+        <item
+            android:id="@+id/menu_exit"
+            android:icon="@drawable/ic_item1"
+            android:title="Sair" />
+
+
+
+
+
+
+        <!-- Adicione mais itens conforme necessário -->
+    </group>
+</menu>

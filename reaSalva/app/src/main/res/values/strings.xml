@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Área Salva</string>
+    <string name="channel_name" >Área Salva</string>
+    <string name="channel_description" > Gerenciador de área de tranferencia</string>
+    <string name="notification_title" > App em execução </string>
+    <string name="notification_text" >O serviço ClipboardMonitor está em execução em segundo plano</string>
+    <string name="navigation_drawer_open">Abrir menu de navegação</string>
+    <string name="navigation_drawer_close">Fechar menu de navegação</string>
+</resources>
