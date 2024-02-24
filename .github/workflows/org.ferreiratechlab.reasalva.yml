@@ -1,26 +1,22 @@
 Categories:
-  - Internet
-  - Navigation
-License: GPL-3.0-or-later
-SourceCode: https://gitlab.com/APPLICATION_UPSTREAM/ExampleCom
+  - Utilities
+  - Productivity
+License: MIT
+SourceCode: https://gitlab.com/ferreiratechlab/reaSalva
 
 RepoType: git
-Repo: https://gitlab.com/APPLICATION_UPSTREAM/ExampleCom
+Repo: https://gitlab.com/ferreiratechlab/reaSalva
 
 Builds:
   - versionName: '1.0'
-    versionCode: 123
-    commit: v1.0
-    # Where build.gradle is:
+    versionCode: 1
+    commit: main
     subdir: app
-    sudo:
-      - apt-get update
-      - apt-get install -y librsvg2-bin openjdk-17-jdk-headless
-      - update-alternatives --auto java
     gradle:
       - yes
 
-AutoUpdateMode: Version
-UpdateCheckMode: Tags
+AutoUpdateMode: None
+UpdateCheckMode: None
 CurrentVersion: '1.0'
-CurrentVersionCode: 123
+CurrentVersionCode: 1
+
