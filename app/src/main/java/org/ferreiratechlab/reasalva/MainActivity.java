@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -25,6 +26,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,9 +41,12 @@ import org.ferreiratechlab.reasalva.Controller.ItemAdapter;
 import org.ferreiratechlab.reasalva.DataBase.DatabaseContract;
 import org.ferreiratechlab.reasalva.DataBase.DatabaseHelper;
 import org.ferreiratechlab.reasalva.Models.ClipboardItem;
-
+import org.ferreiratechlab.reasalva.Security.KeyManager;
+import org.ferreiratechlab.reasalva.Utils.CryptoUtils;
+import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
 
     private boolean flag = false;
+
+    private boolean flagFim = true;
+
+    private static final int PERMISSION_REQUEST_POST_NOTIFICATIONS = 1;
+
     // Defina os IDs de menu como constantes de classe
 
     @Override
@@ -74,9 +85,20 @@ public class MainActivity extends AppCompatActivity {
         clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         databaseHelper = new DatabaseHelper(this);
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // A permissão para postar notificações não está concedida, então solicita ao usuário
+            flagFim=false;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_POST_NOTIFICATIONS);
+        } else {
+            // A permissão já está concedida, então pode prosseguir com a exibição da notificação
+            flagFim=true;
+        }
+
+        KeyManager.getOrCreateKey(this);
 
 
-       startService(new Intent(this, ClipboardMonitorService.class));
+
+        startService(new Intent(this, ClipboardMonitorService.class));
 
 
 
@@ -223,7 +245,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
+        if(flagFim){
+            finish();
+        }else{
+            flagFim = true;
+        }
+
 
     }
 
@@ -244,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateList() {
+    private void updateList()  {
         // Obtém uma instância do banco de dados usando o DatabaseHelper
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
@@ -273,17 +300,21 @@ public class MainActivity extends AppCompatActivity {
             do {
                 // Lê o conteúdo de cada item do banco de dados
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.ItemEntry._ID));
-                String content = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ItemEntry.COLUMN_NAME_CONTENT));
+                String contentCrypto = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ItemEntry.COLUMN_NAME_CONTENT));
+                String content = null;
+                try{
+                    content = CryptoUtils.decrypt(contentCrypto, KeyManager.getKeyFromSharedPreferences(this));
+                    // Cria um objeto ClipboardItem e adiciona à lista de itens
+                    ClipboardItem item = new ClipboardItem(id, content);
+                    itemList.add(item);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
-                // Cria um objeto ClipboardItem e adiciona à lista de itens
-                ClipboardItem item = new ClipboardItem(id, content);
-                itemList.add(item);
             } while (cursor.moveToNext());
-
             // Fecha o cursor após ler todos os itens
             cursor.close();
         }
-
         // Define os itens na lista do adaptador
         adapter.setItems(itemList);
         updateCardVisibility();
@@ -314,13 +345,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void showSaveTextDialog(final CharSequence text) {
         // Crie um diálogo de confirmação para perguntar ao usuário se deseja salvar o texto
+        final String[] textCrypto = new String[1];
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Deseja salvar o texto da área de transferência?");
         builder.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Salve o texto no banco de dados
-                saveTextToDatabase(text.toString());
+                try {
+                    textCrypto[0] = CryptoUtils.encrypt(text.toString(), KeyManager.getKeyFromSharedPreferences(MainActivity.this));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                saveTextToDatabase(textCrypto[0]);
                 // Atualize a lista na RecyclerView
                 updateList();
             }

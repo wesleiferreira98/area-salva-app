@@ -53,6 +53,8 @@ public class ClipboardMonitorService extends Service {
     private Looper serviceLooper;
     private ServiceHandler serviceHandler;
 
+    private static final int PERMISSION_REQUEST_POST_NOTIFICATIONS = 1;
+
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
@@ -194,6 +196,8 @@ public class ClipboardMonitorService extends Service {
         } else {
             // Caso a permissão não esteja concedida, solicita a permissão ao usuário
             // Você pode implementar isso chamando ActivityCompat.requestPermissions() aqui
+
+
 
         }
         }

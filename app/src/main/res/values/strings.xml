@@ -6,4 +6,7 @@
     <string name="notification_text" >O serviço ClipboardMonitor está em execução em segundo plano</string>
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
     <string name="navigation_drawer_close">Fechar menu de navegação</string>
+    <string name="fingerprint_icon">Ícone de impressão digital</string>
+    <string name="waiting_for_fingerprint">Aguardando impressão digital</string>
+    <string name="cancel">Autenticar</string>
 </resources>
